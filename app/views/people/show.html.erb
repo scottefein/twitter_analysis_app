@@ -1,0 +1,35 @@
+<% unless @instagram_enabled %>
+  <a href="/oauth/connect">Connect with Instagram</a>
+<% end %>
+<h2>Photos Tagged</h2>
+<div id="s3slider">
+    <ul id="s3sliderContent">
+    		<% @recent_photos.each do |photo| %>
+	        <li class="s3sliderImage">
+	            <img src="<%= photo.url %>">
+	            <span><%= photo.display_text %></span>
+	        </li>
+	       <% end %>
+        <div class="clear s3sliderImage"></div>
+    </ul>
+</div>
+<h2> <%= @name %> tends to take photos of: </h2>
+<ul id="places_been">
+  <% @photo_tags.each_with_index do |photo, index| %>
+    <li><span><%=index + 1%>. <%=photo[0].capitalize.pluralize%> (<%=photo[1]%>)</span></li>
+  <% end %>
+</ul>
+<h2> <%= @name %> tends to be a <%= @sentiment_of_tweets %> presence on Twitter</h2>
+<h2> <%= @name %> tends to tweet about </h2>
+<ul id="places_been">
+  <% @concepts.each_with_index do |concept, index| %>
+    <li><span><%=index + 1%>. <%=concept.capitalize%></span></li>
+  <% end %>
+</ul>
+<script>
+	$(document).ready(function() {
+    $('#s3slider').s3Slider({
+        timeOut: 4000
+    });
+	});
+</script>
